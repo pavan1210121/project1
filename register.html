@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register as a Donor</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    async function submitForm(event) {
+      event.preventDefault();
+      const form = event.target;
+      const data = {
+        name: form.name.value,
+        blood: form.blood.value,
+        contact: form.contact.value
+      };
+      const res = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      alert(result.message || result.error);
+      form.reset();
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Register as a Donor</h1>
+  </header>
+  <main>
+    <form onsubmit="submitForm(event)">
+      <label>Name:<input type="text" name="name" required></label><br>
+      <label>Blood Group:<input type="text" name="blood" required></label><br>
+      <label>Contact:<input type="tel" name="contact" required></label><br>
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+</body>
+</html>

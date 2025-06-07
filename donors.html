@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Donor List</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    async function loadDonors() {
+      const res = await fetch('/api/donors');
+      const donors = await res.json();
+      const list = document.getElementById('donor-list');
+      list.innerHTML = '';
+      donors.forEach(d => {
+        const li = document.createElement('li');
+        li.textContent = `${d.blood} - ${d.name} (${d.contact})`;
+        list.appendChild(li);
+      });
+    }
+    window.onload = loadDonors;
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Available Donors</h1>
+  </header>
+  <main>
+    <ul id="donor-list"></ul>
+  </main>
+</body>
+</html>
